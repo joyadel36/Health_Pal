@@ -1,0 +1,57 @@
+﻿@model IEnumerable<HealthPal.Models.Clinic>
+
+@{
+    ViewData["Title"] = "GetAllClinics";
+}
+
+<h1>GetAllClinics</h1>
+
+<p>
+    <a asp-action="CreateClinic">Create New</a>
+</p>
+
+<div class="container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="data:image/png;base64,@Convert.ToBase64String(item.Image)" class="card-img-top" alt="clinic Image" style="max-height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">Name: @item.Name</h5>
+                        <p class="card-text">Location: @item.Location</p>
+                        <div id="map-@item.ID" class="clinic-map" style="height: 150px;"></div>
+                        <p class="card-text">Phone: @item.Phone</p>
+                        <a asp-action="EditClinic" asp-route-id="@item.ID" class="btn btn-success">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-primary">Details</a>
+                        <a asp-action="DeleteClinic" asp-route-id="@item.ID" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+    <script>
+        function loadGoogleMaps() {
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBicErnm5MQhQ9TEC8PHfQoBxQZEdv7v40&callback=initMaps';
+            document.head.appendChild(script);
+        }
+
+        function initMaps() {
+        @foreach (var item in Model)
+        {
+            <text>
+                var myCenter = new google.maps.LatLng(@item.Latitude, @item.Longitude);
+                var mapProp = { center: myCenter, zoom: 16, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+                var map = new google.maps.Map(document.getElementById("map-@item.ID"), mapProp);
+                var marker = new google.maps.Marker({ position: myCenter });
+                marker.setMap(map);
+            </text>
+        }
+                }
+
+        loadGoogleMaps();
+    </script>

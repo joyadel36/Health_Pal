@@ -1,0 +1,118 @@
+﻿@page
+@model RegisterModel
+@{
+    Layout = null;
+    ViewData["Title"] = "Register";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HealthPal</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/HealthPal.styles.css" asp-append-version="true" />
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 0 !important;
+        }
+    </style>
+</head>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <h1 class="mb-4">Sign Up</h1>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="All" class="text-danger" role="alert"></div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.First_Name" class="form-label">First Name</label>
+                    <input asp-for="Input.First_Name" class="form-control" autocomplete="First_Name" aria-required="true" placeholder="Enter Your First Name" />
+                    <span asp-validation-for="Input.First_Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.Last_Name" class="form-label">Last Name</label>
+                    <input asp-for="Input.Last_Name" class="form-control" autocomplete="Last_Name" aria-required="true" placeholder="Enter Your Last Name" />
+                    <span asp-validation-for="Input.Last_Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="Input.BirthDate" class="form-label">Birth Date</label>
+                    <input asp-for="Input.BirthDate" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
+                        <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                </div> 
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="form-label">Email</label>
+                    <input asp-for="Input.Email" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div> 
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="form-label">Password</label>
+                    <input asp-for="Input.Password" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.ConfirmPassword" class="form-label">Confirm Password</label>
+                    <input asp-for="Input.ConfirmPassword" class="form-control" aria-required="true" />
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+               
+                <div class="mb-3">
+                    <label asp-for="Input.CheckDoctorRole" class="form-label">Select Role</label>
+                    <select asp-for="Input.CheckDoctorRole" asp-items="@Html.GetEnumSelectList<myRoles>()" class="form-control"></select>
+                    <span asp-validation-for="Input.CheckDoctorRole" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <button id="registerSubmit" type="submit" class="btn btn-primary w-100">Sign Up</button>
+                </div>
+
+                <p class="text-center">
+                    Already have an account? <a asp-page="./Login">Sign In</a>
+                </p>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+                <section class="p-2 text-center">
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) != 0)
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div>
+                                    <p>
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            if (provider.DisplayName == "Google")
+                                            {
+                                <button type="submit" class="btn fw-bold border" style="background-color:white;color:black; border-radius: 10px;" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img src="~/img/google.png" style="width:30px;height:30px" /> Sign Up With @provider.DisplayName</button>
+                                                                                            
+                                            }
+                                            else
+                                            {
+                                <button type="submit" class="btn fw-bold border" style="background-color:white;color:black;border-radius: 10px;" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img src="~/img/icons8-facebook-48.png" style="width:30px;height:30px" /> Sign Up With @provider.DisplayName</button>
+                                            }
+                                    }
+                                    </p>
+                                </div>
+                            </form>
+                        }
+                    }
+                </section>
+            </div>
+        </div>
+
+
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

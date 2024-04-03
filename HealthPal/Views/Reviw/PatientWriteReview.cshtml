@@ -1,0 +1,42 @@
+﻿@model HealthPal.ViewModels.ReviewViewModel
+
+@{
+    ViewData["Title"] = "PatientWriteReview";
+}
+
+<h1>PatientWriteReview</h1>
+
+<h4>Rating</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PatientWriteReview">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" name="PID" value="@ViewBag.P_Id" />
+                <input type="hidden" name="DID" value="@ViewBag.D_Id" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate" class="control-label"></label>
+                <input max="5" min="1" asp-for="Rate" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Review" class="control-label"></label>
+                <textarea id="Review" name="Review" class="form-control"></textarea>
+                <span asp-validation-for="Review" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

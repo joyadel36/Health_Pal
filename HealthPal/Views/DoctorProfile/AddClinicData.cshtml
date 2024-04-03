@@ -1,0 +1,73 @@
+﻿@model HealthPal.ViewModels.DoctorClinic
+
+@{
+    ViewData["Title"] = "AddClinicData";
+}
+
+<h1>AddClinicData</h1>
+
+<h4>DoctorClinic</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddClinicData">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClinicName" class="control-label"></label>
+                <input asp-for="ClinicName" class="form-control" />
+                <span asp-validation-for="ClinicName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClinicLocation" class="control-label"></label>
+                <input asp-for="ClinicLocation" class="form-control" />
+                <span asp-validation-for="ClinicLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClinicLatitude" class="control-label"></label>
+                <input asp-for="ClinicLatitude" class="form-control" />
+                <span asp-validation-for="ClinicLatitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClinicLongitude" class="control-label"></label>
+                <input asp-for="ClinicLongitude" class="form-control" />
+                <span asp-validation-for="ClinicLongitude" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClinicImageData" class="control-label"></label>
+                <input asp-for="ClinicImageData" class="form-control" />
+                <span asp-validation-for="ClinicImageData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClinicPhoneNum" class="control-label"></label>
+                <input asp-for="ClinicPhoneNum" class="form-control" />
+                <span asp-validation-for="ClinicPhoneNum" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationTime" class="control-label"></label>
+                <input asp-for="ReservationTime" class="form-control" />
+                <span asp-validation-for="ReservationTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReservationStatus" class="control-label"></label>
+                <select asp-for="ReservationStatus" asp-items="@Html.GetEnumSelectList<Status>()" class="form-control"></select>
+                <span asp-validation-for="ReservationStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ClinicReservationPrice" class="control-label"></label>
+                <input asp-for="ClinicReservationPrice" class="form-control" />
+                <span asp-validation-for="ClinicReservationPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@* @section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+} *@

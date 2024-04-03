@@ -1,0 +1,25 @@
+﻿@model Dictionary<HealthPal.Models.Specialist, List<HealthPal.Models.Rating>>
+
+<h2>Top Rated Doctors in Each Specialist</h2>
+
+@foreach (var pair in Model)
+{
+    <h3>@pair.Key.Name</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Doctor Name</th>
+                <th>Average Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rating in pair.Value)
+            {
+                <tr>
+                    <td>@rating.Doctor.FName @rating.Doctor.LName</td>
+                    <td>@rating.Rate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

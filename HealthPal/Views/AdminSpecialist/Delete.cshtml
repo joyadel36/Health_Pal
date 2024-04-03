@@ -1,0 +1,26 @@
+﻿@model HealthPal.Models.Specialist
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Specialist</h4>
+    <hr />
+    <div class="card" style="width: 18rem;">
+        <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Specialist Image" class="card-img-top" />
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <a asp-controller="Doctor" asp-action="GetDoctorsInSpecialist" asp-route-id="@Model.ID" class="btn btn-primary">Go Doctors</a>
+        </div>
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="GetAllSpecialists">Back to List</a>
+    </form>
+</div>

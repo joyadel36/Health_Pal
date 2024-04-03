@@ -1,0 +1,12 @@
+﻿<div id="map" style="height:400px;width:700px;margin:auto"></div>
+<script>
+    var map;
+    function myMap() {
+        var myCenter = new google.maps.LatLng(20.296100, 85.824500);
+        var mapProp = { center: myCenter, zoom: 16, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+        map = new google.maps.Map(document.getElementById("map"), mapProp);
+        var marker = new google.maps.Marker({ position: myCenter });
+        marker.setMap(map);
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBicErnm5MQhQ9TEC8PHfQoBxQZEdv7v40&callback=myMap" async defer></script>

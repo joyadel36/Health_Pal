@@ -1,0 +1,40 @@
+﻿@model HealthPal.Models.Doctor
+
+
+@{
+    ViewData["Title"] = "GetDoctorById";
+   
+}
+
+<h1 class="text-center fw-bold text-primary">Dr.@Model.FName  @Model.LName</h1>
+<div class="card m-auto" style="width: 70%;">
+    <img src="/img/@Model.Image" class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">Dr.@Model.FName @Model.LName</h5>
+        <p class="card-text">@Model.Description</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">@Model.Specialist.Name</li>
+    </ul>
+    <div class="card-body">
+        <a asp-controller="Appointment" asp-action="CreateAppointment" asp-route-id="@Model.ID" class="btn btn-primary">Appointment</a>
+        <a asp-action="PatientWriteReview" asp-controller="Reviw" asp-route-id="@Model.ID" class="btn btn-primary">Add Review</a>
+    </div>
+</div>
+<br />
+<h2 class="text-center fw-bold text-primary">Reviews</h2>
+@foreach (var item in (List<Rating>)ViewBag.Reviews)
+{
+    <div class="card m-auto" style="width:60%">
+        <div class="card-header">
+            @item.Patient.FName @item.Patient.LName
+        </div>
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p>@item.Review</p>
+                <footer class="blockquote-footer"><i class="fas fa-star"></i> <cite title="Source Title">@item.Rate</cite></footer>
+            </blockquote>
+        </div>
+    </div>
+    <br />
+}

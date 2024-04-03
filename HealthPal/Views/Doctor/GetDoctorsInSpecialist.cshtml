@@ -1,0 +1,39 @@
+﻿@model IEnumerable<HealthPal.Models.Doctor>
+
+@{
+    ViewData["Title"] = "GetDoctorsInSpecialist";
+}
+
+<h1 class="text-center fw-bold text-primary">@Model.FirstOrDefault().Specialist.Name</h1>
+<div class="d-flex justify-content-center">
+<div class="d-flex flex-column">
+@foreach(var item in Model)
+{
+    <div class="card mb-3" style="max-width: 940px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="/img/@item.Image" width="300px" height="270px" class="rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">Dr.@item.FName @item.LName</h5>
+                            @* <div class="d-flex align-items-center mb-2">
+                                <span class="star-rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                    <i class="far fa-star"></i>
+                                </span>
+                            </div> *@
+                    <p class="card-text text-secondary">@item.Description</p>
+                    @* <p class="card-text"><small class="text-body-secondary"></small></p> *@<br />
+                            <a asp-action="GetDoctorById" asp-route-id="@item.ID" class="btn btn-primary">Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+</div>
+</div>
+

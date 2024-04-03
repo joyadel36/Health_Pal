@@ -1,0 +1,23 @@
+﻿@model HealthPal.Models.Specialist
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Specialist</h4>
+    <hr />
+    <div class="card" style="width: 18rem;">
+        <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="Specialist Image" class="card-img-top" />
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <a asp-controller="Doctor" asp-action="GetDoctorsInSpecialist" asp-route-id="@Model.ID" class="btn btn-primary">Go Doctors</a>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
+    <a asp-action="GetAllSpecialists">Back to List</a>
+</div>

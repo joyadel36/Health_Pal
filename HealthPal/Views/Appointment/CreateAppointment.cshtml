@@ -1,0 +1,79 @@
+﻿ @model HealthPal.ViewModels.AppointmentViewModel
+
+@{
+   // Layout = "~/layaouts/_HomeLayout.cshtml";
+    ViewData["Title"] = "CreateAppointment";
+}
+
+
+<h1 class="text-center">Create Appointment</h1>
+
+@* <h4>Appointment</h4> *@
+<hr />
+<div class="row">
+    <div class="col-md-4 m-auto">
+        <form asp-action="CreateAppointment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="hidden" name="P_ID" value="@ViewBag.P_Id" />
+                <input type="hidden" name="D_ID" value="@ViewBag.D_Id" />
+            </div>
+            <div class="form-group">
+            <label asp-for="ClinicID" class="control-label">Clinic Name - Price</label>
+
+                <select asp-for="ClinicID" class="form-control" onchange="GetData(ClinicID.value, @ViewBag.D_Id)">
+                    <option disabled selected>None</option>
+                  @foreach (var clinic in (List<Time>)ViewBag.timetable)
+                {
+                <option value="@clinic.ClinicID">@clinic.Clinic.Name - @clinic.Price $</option>
+                } 
+            </select>
+            </div>
+            <br/>
+           <div class="form-group">
+                <label asp-for="DateTime" class="control-label"></label>
+                <select id="DateTime"></select>
+                <span asp-validation-for="DateTime" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <select asp-for="Status" asp-items="@Html.GetEnumSelectList<Status>()" class="form-control"></select>
+                
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+      
+    </div>
+</div>
+<script>
+    function GetData(id,DID) {
+        $.ajax({
+            type: "GET",
+            url: "@Url.Action("GetData")",
+            data: "Json",
+            data: { clincID: id,DoctorID:DID },
+            success: function (data) {
+                var dropdown = $('#DateTime');
+                dropdown.empty(); // Clear existing options
+                $.each(data, function (index, item) {
+                    // Convert time to string format suitable for display
+                   // var timeString = new Date(item.time).toLocaleString().split(", ")[1];
+                    var timeString = new Date(item.time).toLocaleString();
+                    dropdown.append($('<option></option>').attr('value', item.time).text(timeString));
+                });
+                $('#result').html(data);
+            },
+            error: function (req, status, error) {
+                $('#result').html(status);
+
+            }
+        });
+    }
+ 
+
+</script>

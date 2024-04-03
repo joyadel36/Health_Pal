@@ -1,0 +1,62 @@
+﻿@model HealthPal.Models.Clinic
+
+@{
+    ViewData["Title"] = "DeleteClinic";
+}
+
+<h1 class="mt-4">Delete Clinic</h1>
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Clinic Details</h3>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4">Name:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-4">Location:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Location)</dd>
+
+                <dt class="col-sm-4">Image:</dt>
+                <dd class="col-sm-8">
+                    <img src="data:image/png;base64,@Convert.ToBase64String(Model.Image)" alt="clinic Image" class="img-fluid" style="max-width: 200px;" />
+                </dd>
+
+                <dt class="col-sm-4">Phone:</dt>
+                <dd class="col-sm-8">@Html.DisplayFor(model => model.Phone)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <form asp-action="DeleteClinic" class="mt-4">
+        <input type="hidden" asp-for="ID" />
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="GetAllClinics" class="btn btn-secondary ml-2">Back to List</a>
+    </form>
+</div>
+
+<!-- Map Card Section -->
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Location Map</h4>
+            <hr />
+            <div id="map" style="height:400px;"></div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        var map;
+        function initMap() {
+            var latitude = @Html.Raw(Json.Serialize(Model.Latitude));
+            var longitude = @Html.Raw(Json.Serialize(Model.Longitude));
+            var myCenter = new google.maps.LatLng(latitude, longitude);
+            var mapProp = { center: myCenter, zoom: 16, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+            map = new google.maps.Map(document.getElementById("map"), mapProp);
+            var marker = new google.maps.Marker({ position: myCenter });
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBicErnm5MQhQ9TEC8PHfQoBxQZEdv7v40&callback=initMap" async defer></script>

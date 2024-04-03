@@ -1,0 +1,45 @@
+﻿@model HealthPal.Models.Patient
+
+@{
+    // Layout = "~/layaouts/_PatientLayout.cshtml";
+    //Layout = "~/layaouts/_HomeLayout.cshtml";
+    ViewData["Title"] = "Patient Details";
+}
+
+<div class="container mt-5">
+    <div class="card">
+        <h5 class="card-header">Patient Details</h5>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">First Name:</dt>
+                <dd class="col-sm-9">@Model.FName</dd>
+
+                <dt class="col-sm-3">Last Name:</dt>
+                <dd class="col-sm-9">@Model.LName</dd>
+
+                <dt class="col-sm-3">Birth Date:</dt>
+                <dd class="col-sm-9">@Model.BDate.ToShortDateString()</dd>
+
+                <dt class="col-sm-3">Age:</dt>
+                <dd class="col-sm-9">
+                    @{
+                        var age = DateTime.Now.Year - Model.BDate.Year;
+                        if (Model.BDate > DateTime.Now.AddYears(-age)) age--;
+                        @age
+                    }
+                </dd>
+
+                <dt class="col-sm-3">Phone:</dt>
+                <dd class="col-sm-9">@Model.Phone</dd>
+
+                <dt class="col-sm-3">City:</dt>
+                <dd class="col-sm-9">@Model.City</dd>
+            </dl>
+
+
+        </div>
+    </div>
+</div>
+
+
+
